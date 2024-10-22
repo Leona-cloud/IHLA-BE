@@ -22,24 +22,32 @@ const exportData = async (req, res) => {
     const workbook = xlsx.utils.book_new();
 
     const mathData = allData.map((item) => ({
-      Question: "What is 2+2?",
-      Answer: item.math.answer,
+      Question:
+        item.math.length > 0 ? item.math[0].question : "No question available",
+      Answer: item.math.length > 0 ? item.math[0].answer : "N/A",
     }));
     const mathWorksheet = xlsx.utils.json_to_sheet(mathData);
     xlsx.utils.book_append_sheet(workbook, mathWorksheet, "Math");
 
     // Science Data
     const scienceData = allData.map((item) => ({
-      Question: "What is H2O?",
-      Answer: item.science.answer,
+      Question:
+        item.science.length > 0
+          ? item.science[0].question
+          : "No question available",
+      Answer: item.science.length > 0 ? item.science[0].answer : "N/A",
     }));
     const scienceWorksheet = xlsx.utils.json_to_sheet(scienceData);
     xlsx.utils.book_append_sheet(workbook, scienceWorksheet, "Science");
 
     const historyData = allData.map((item) => ({
-      Question: "When did WW2 start?",
-      Answer: item.history.answer,
+      Question:
+        item.history.length > 0
+          ? item.history[0].question
+          : "No question available",
+      Answer: item.history.length > 0 ? item.history[0].answer : "N/A",
     }));
+
     const historyWorksheet = xlsx.utils.json_to_sheet(historyData);
     xlsx.utils.book_append_sheet(workbook, historyWorksheet, "History");
 
